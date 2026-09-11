@@ -32,8 +32,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 375px;
-  height: 375px;
+  width: 380px;
+  height: 380px;
   object-fit: contain;
   z-index: 9999;
   pointer-events: none;
@@ -110,6 +110,13 @@
 
       const playPauseButton = document.querySelector('#playPauseButton');
       const targetStatus = document.querySelector('#targetStatus');
+      
+      const scannerImage = document.querySelector('#myScannerImage');
+const scene = document.querySelector('a-scene');
+
+scene.addEventListener("arReady", () => {
+  scannerImage.style.display = "none";
+});
 
       let animationsPlaying = true;
 
