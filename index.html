@@ -43,8 +43,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 380px;
-  height: 38px;
+  width: 300px;
+  height: 30px;
   object-fit: contain;
   z-index: 9999;
   pointer-events: none;
@@ -134,7 +134,7 @@ const observer = new MutationObserver(() => {
     const isVisible = getComputedStyle(scanningUI).display !== 'none';
 
     scannerImage.style.display = isVisible ? 'block' : 'none';
-    secondImage.style.display = isVisible ? 'block' : 'none';
+    scanImage.style.display = isVisible ? 'block' : 'none';
   }
 });
 
