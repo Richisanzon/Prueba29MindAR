@@ -123,12 +123,17 @@
       const targetStatus = document.querySelector('#targetStatus');
       
     
-      const scannerImage = document.querySelector('#myScannerImage','#scanImage');
+     const scannerImage = document.querySelector('#myScannerImage');
+const secondImage = document.querySelector('#scanImage');
+
 const observer = new MutationObserver(() => {
   const scanningUI = document.querySelector('.mindar-ui-scanning');
+
   if (scanningUI) {
     const isVisible = getComputedStyle(scanningUI).display !== 'none';
+
     scannerImage.style.display = isVisible ? 'block' : 'none';
+    secondImage.style.display = isVisible ? 'block' : 'none';
   }
 });
 
