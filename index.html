@@ -28,21 +28,6 @@
         font-size: 16px;
       }
 
-       #customScanner {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px;
-    height: 300px;
-    background-image: url("./scanner.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 9999;
-    pointer-events: none;
-  }
-
     </style>
   </head> 
 
@@ -55,7 +40,7 @@
       Kayle: Target not found
     </div>
 <a-scene 
-  mindar-image="imageTargetSrc:./sisters.mind; maxTrack: 2; uiScanning: no;"
+  mindar-image="imageTargetSrc:./sisters.mind; maxTrack: 2;"
 
       color-space="sRGB" 
       renderer="colorManagement: true, physicallyCorrectLights" 
