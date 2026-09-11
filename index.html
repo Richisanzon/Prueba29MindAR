@@ -9,6 +9,199 @@
     <style>
       #playPauseButton {
         position: fixed;
+<html> 
+  <head> 
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.0.0/dist/aframe-extras.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+    <style>
+      #playPauseButton {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 9999;
+        padding: 12px 20px;
+        font-size: 18px;
+      }
+
+      #targetStatus {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 10px;
+        font-size: 16px;
+      }
+    </style>
+  </head> 
+
+  <body>
+
+    <button id="playPauseButton">Pause</button>
+
+    <div id="targetStatus">
+      Morgana: Target not found<br>
+      Kayle: Target not found
+    </div>
+
+    <a-scene 
+      mindar-image="imageTargetSrc:./sisters.mind; maxTrack: 2" 
+      color-space="sRGB" 
+      renderer="colorManagement: true, physicallyCorrectLights" 
+      vr-mode-ui="enabled: false" 
+      device-orientation-permission-ui="enabled: false">
+
+      <a-assets>
+        <a-asset-item id="kayleModel" src="./kayle.glb"></a-asset-item>
+        <a-asset-item id="morganaModel" src="./morgana.glb"></a-asset-item>
+      </a-assets>
+
+      <a-camera 
+        position="0 0 0" 
+        look-controls="enabled: false">
+      </a-camera>
+
+      <a-entity 
+        id="morgana-target"
+        mindar-image-target="targetIndex: 0">
+
+        <a-gltf-model 
+          id="morgana"
+          rotation="0 0 0" 
+          position="0 -0.25 0" 
+          scale="0.5 0.5 0.5" 
+          src="#morganaModel" 
+          animation-mixer>
+        </a-gltf-model>
+
+      </a-entity>
+
+      <a-entity 
+        id="kayle-target"
+        mindar-image-target="targetIndex: 1">
+
+        <a-gltf-model 
+          id="kayle"
+          rotation="0 0 0" 
+          position="0 -0.25 0" 
+          scale="0.5 0.5 0.5" 
+          src="#kayleModel" 
+          animation-mixer>
+        </a-gltf-model>
+
+      </a-entity>
+
+    </a-scene>
+
+    <script>
+
+      const morganaTarget = document.querySelector('#morgana-target');
+      const kayleTarget = document.querySelector('#kayle-target');
+
+      const morgana = document.querySelector('#morgana');
+      const kayle = document.querySelector('#kayle');
+
+      const playPauseButton = document.querySelector('#playPauseButton');
+      const targetStatus = document.querySelector('#targetStatus');
+
+      let animationsPlaying = true;
+
+      // MORGANA TARGET
+
+      morganaTarget.addEventListener("targetFound", () => {
+
+        console.log("Morgana target found");
+
+        targetStatus.innerHTML =
+          "Morgana: Target found<br>" +
+          "Kayle: Target not found";
+
+      });
+
+      morganaTarget.addEventListener("targetLost", () => {
+
+        console.log("Morgana target lost");
+
+        targetStatus.innerHTML =
+          "Morgana: Target not found<br>" +
+          "Kayle: Target not found";
+
+      });
+
+
+      // KAYLE TARGET
+
+      kayleTarget.addEventListener("targetFound", () => {
+
+        console.log("Kayle target found");
+
+        targetStatus.innerHTML =
+          "Morgana: Target not found<br>" +
+          "Kayle: Target found";
+
+      });
+
+      kayleTarget.addEventListener("targetLost", () => {
+
+        console.log("Kayle target lost");
+
+        targetStatus.innerHTML =
+          "Morgana: Target not found<br>" +
+          "Kayle: Target not found";
+
+      });
+
+
+      // PLAY / PAUSE
+
+      playPauseButton.addEventListener("click", () => {
+
+        if (animationsPlaying) {
+
+          morgana.setAttribute(
+            "animation-mixer",
+            "timeScale: 0"
+          );
+
+          kayle.setAttribute(
+            "animation-mixer",
+            "timeScale: 0"
+          );
+
+          playPauseButton.innerText = "Play";
+
+          animationsPlaying = false;
+
+        } else {
+
+          morgana.setAttribute(
+            "animation-mixer",
+            "timeScale: 1"
+          );
+
+          kayle.setAttribute(
+            "animation-mixer",
+            "timeScale: 1"
+          );
+
+          playPauseButton.innerText = "Pause";
+
+          animationsPlaying = true;
+        }
+
+      });
+
+    </script>
+
+  </body>
+</html>
+```
+
         bottom: 30px;
         left: 50%;
         transform: translateX(-50%);
