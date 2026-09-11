@@ -111,11 +111,20 @@
       const playPauseButton = document.querySelector('#playPauseButton');
       const targetStatus = document.querySelector('#targetStatus');
       
+    
       const scannerImage = document.querySelector('#myScannerImage');
-const scene = document.querySelector('a-scene');
+const observer = new MutationObserver(() => {
+  const scanningUI = document.querySelector('.mindar-ui-scanning');
+  if (scanningUI) {
+    const isVisible = getComputedStyle(scanningUI).display !== 'none';
+    scannerImage.style.display = isVisible ? 'block' : 'none';
+  }
+});
 
-scene.addEventListener("arReady", () => {
-  scannerImage.style.display = "none";
+observer.observe(document.body, {
+  attributes: true,
+  childList: true,
+  subtree: true
 });
 
       let animationsPlaying = true;
